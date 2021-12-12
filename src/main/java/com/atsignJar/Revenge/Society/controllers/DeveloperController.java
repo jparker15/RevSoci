@@ -21,7 +21,7 @@ public class DeveloperController {
     @GetMapping
     public @ResponseBody List<Developer> getDevelopers(){return repository.findAll();}
 
-    @GetMapping
+    @GetMapping("/{id}")
     public @ResponseBody Developer getOneDeveloper(@PathVariable Long id){
         return repository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
