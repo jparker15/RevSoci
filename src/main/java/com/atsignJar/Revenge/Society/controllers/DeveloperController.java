@@ -38,6 +38,7 @@ public class DeveloperController {
         if (updates.getName() != null) developer.setName(updates.getName());
         if (updates.getEmail() != null) developer.setEmail(updates.getEmail());
         if (updates.getCohort() != null) developer.setCohort(updates.getCohort());
+        if (updates.getLanguages() != null) developer.setLanguages(updates.getLanguages());
 
         return repository.save(developer);
     }
