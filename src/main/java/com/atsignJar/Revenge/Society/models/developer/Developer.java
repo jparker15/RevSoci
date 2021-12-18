@@ -1,10 +1,12 @@
 package com.atsignJar.Revenge.Society.models.developer;
 
+import com.atsignJar.Revenge.Society.models.geekout.Geekout;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,6 +20,9 @@ public class Developer {
     private String email;
     private Integer cohort;
     private String[] languages;
+    @OneToMany
+    @JoinColumn(name = "developer_id",referencedColumnName = "id")
+    private List<Geekout> geekouts;
 
     public Developer() {}
 
