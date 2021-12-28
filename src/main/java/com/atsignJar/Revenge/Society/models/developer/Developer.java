@@ -1,6 +1,7 @@
 package com.atsignJar.Revenge.Society.models.developer;
 
 import com.atsignJar.Revenge.Society.models.geekout.Geekout;
+import com.atsignJar.Revenge.Society.models.language.Language;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,17 +20,25 @@ public class Developer {
     private String name;
     private String email;
     private Integer cohort;
-    private String[] languages;
+//    private String[] languages;
     @OneToMany
     @JoinColumn(name = "developer_id",referencedColumnName = "id")
     private List<Geekout> geekouts;
+    @ManyToMany
+    @JoinTable(
+            name = "developer_language",
+            joinColumns = @JoinColumn(name = "developer_id"),
+            inverseJoinColumns = @JoinColumn(name = "language_id")
+    )
+    public Set <Language> languages;
 
     public Developer() {}
 
-    public Developer(String name, String email, Integer cohort,String[] languages) {
+    public Developer(String name, String email, Integer cohort, List<Geekout> geekouts, Set<Language> languages) {
         this.name = name;
         this.email = email;
         this.cohort = cohort;
+        this.geekouts = geekouts;
         this.languages = languages;
     }
 
@@ -63,13 +72,5 @@ public class Developer {
 
     public void setCohort(Integer cohort) {
         this.cohort = cohort;
-    }
-
-    public String[] getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(String[] languages) {
-        this.languages = languages;
     }
 }
