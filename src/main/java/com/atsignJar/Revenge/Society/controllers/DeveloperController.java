@@ -1,6 +1,7 @@
 package com.atsignJar.Revenge.Society.controllers;
 
 import com.atsignJar.Revenge.Society.models.developer.Developer;
+import com.atsignJar.Revenge.Society.models.language.Language;
 import com.atsignJar.Revenge.Society.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -42,6 +43,15 @@ public class DeveloperController {
         return new ResponseEntity<>(repository.save(newDeveloper),HttpStatus.CREATED);
     }
 
+    @PutMapping("/languages/")
+    public Developer addLanguage(@RequestBody Developer updates){
+        Developer developer = repository.findById(updates.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        developer.languages.addAll(updates.languages);
+
+        return repository.save(developer);
+    }
+
     @PutMapping("/{id}")
     public @ResponseBody Developer updateDeveloper(@PathVariable Long id, @RequestBody Developer updates) {
         Developer developer = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -49,7 +59,7 @@ public class DeveloperController {
         if (updates.getName() != null) developer.setName(updates.getName());
         if (updates.getEmail() != null) developer.setEmail(updates.getEmail());
         if (updates.getCohort() != null) developer.setCohort(updates.getCohort());
-        if (updates.getLanguages() != null) developer.setLanguages(updates.getLanguages());
+        if (updates.languages != null) developer.languages = updates.languages;
 
         return repository.save(developer);
     }
@@ -59,4 +69,6 @@ public class DeveloperController {
         repository.deleteById(id);
         return new ResponseEntity<>("Developer Deleted", HttpStatus.OK);
     }
+
+
 }
