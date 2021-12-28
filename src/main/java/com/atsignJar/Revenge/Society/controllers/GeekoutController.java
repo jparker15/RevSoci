@@ -40,7 +40,7 @@ public class GeekoutController {
         return repository.save(geekout);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOneById(@PathVariable long id){
         repository.deleteById(id);
         return new ResponseEntity<>("Geekout Deleted",HttpStatus.OK);
