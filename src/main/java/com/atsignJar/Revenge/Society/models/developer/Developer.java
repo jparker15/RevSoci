@@ -2,11 +2,10 @@ package com.atsignJar.Revenge.Society.models.developer;
 
 import com.atsignJar.Revenge.Society.models.geekout.Geekout;
 import com.atsignJar.Revenge.Society.models.language.Language;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,9 +20,13 @@ public class Developer {
     private String email;
     private Integer cohort;
 //    private String[] languages;
+    
+    @JsonBackReference
     @OneToMany
     @JoinColumn(name = "developer_id",referencedColumnName = "id")
     private List<Geekout> geekouts;
+
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "developer_language",
@@ -72,5 +75,21 @@ public class Developer {
 
     public void setCohort(Integer cohort) {
         this.cohort = cohort;
+    }
+
+    public Set<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Set<Language> languages) {
+        this.languages = languages;
+    }
+
+    public List<Geekout> getGeekouts() {
+        return geekouts;
+    }
+
+    public void setGeekouts(List<Geekout> geekouts) {
+        this.geekouts = geekouts;
     }
 }

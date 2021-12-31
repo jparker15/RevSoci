@@ -1,6 +1,7 @@
 package com.atsignJar.Revenge.Society.models.language;
 
 import com.atsignJar.Revenge.Society.models.developer.Developer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,6 +14,7 @@ public class Language {
     private String name;
     private String tag;
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(
             name = "developer_language",
