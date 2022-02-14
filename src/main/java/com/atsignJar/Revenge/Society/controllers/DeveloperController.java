@@ -1,7 +1,9 @@
 package com.atsignJar.Revenge.Society.controllers;
 
+import com.atsignJar.Revenge.Society.models.avatar.Avatar;
 import com.atsignJar.Revenge.Society.models.developer.Developer;
 import com.atsignJar.Revenge.Society.models.language.Language;
+import com.atsignJar.Revenge.Society.repositories.AvatarRepository;
 import com.atsignJar.Revenge.Society.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -19,6 +21,9 @@ import java.util.List;
 public class DeveloperController {
     @Autowired
     private DeveloperRepository repository;
+
+    @Autowired
+    private AvatarRepository avatarRepository;
 
     //Get All
     @GetMapping
@@ -41,6 +46,16 @@ public class DeveloperController {
     @PostMapping
     public ResponseEntity<Developer> createDeveloper(@RequestBody Developer newDeveloper){
         return new ResponseEntity<>(repository.save(newDeveloper),HttpStatus.CREATED);
+    }
+
+    @PostMapping("/photo")
+    public Developer addPhoto(@RequestBody Developer dev){
+
+        Developer developer = repository.findById(dev.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Avatar avatar = avatarRepository.save(dev.getAvatar());
+        developer.setAvatar(avatar);
+
+        return repository.save(developer);
     }
 
     @PutMapping("/languages/")
