@@ -1,10 +1,16 @@
 package com.atsignJar.Revenge.Society.models.language;
 
 import com.atsignJar.Revenge.Society.models.developer.Developer;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 
 @Entity
 public class Language {
@@ -14,7 +20,7 @@ public class Language {
     private String name;
     private String tag;
 
-    @JsonBackReference
+
     @ManyToMany
     @JoinTable(
             name = "developer_language",
