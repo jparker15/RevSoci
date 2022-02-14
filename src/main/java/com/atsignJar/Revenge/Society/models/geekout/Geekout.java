@@ -1,9 +1,15 @@
 package com.atsignJar.Revenge.Society.models.geekout;
 
 import com.atsignJar.Revenge.Society.models.developer.Developer;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 
 @Entity
 public class Geekout {
@@ -12,7 +18,6 @@ public class Geekout {
     @GeneratedValue
     private Long id;
 
-   @JsonManagedReference
    @ManyToOne //connects all the posts to that developer's id
    @JoinColumn(name = "developer_id", referencedColumnName = "id")
    private Developer developer;
