@@ -52,6 +52,13 @@ public class DeveloperController {
     public Developer addPhoto(@RequestBody Developer dev){
 
         Developer developer = repository.findById(dev.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        if(developer.getAvatar() != null){
+            Avatar avatar = developer.getAvatar();
+            avatar.setUrl(dev.getAvatar().getUrl());
+            avatarRepository.save(avatar);
+            return developer;
+        }
         Avatar avatar = avatarRepository.save(dev.getAvatar());
         developer.setAvatar(avatar);
 
