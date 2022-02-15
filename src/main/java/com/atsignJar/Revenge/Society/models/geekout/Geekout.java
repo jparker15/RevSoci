@@ -2,6 +2,7 @@ package com.atsignJar.Revenge.Society.models.geekout;
 
 import com.atsignJar.Revenge.Society.models.developer.Developer;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Geekout {
 
    @ManyToOne //connects all the posts to that developer's id
    @JoinColumn(name = "developer_id", referencedColumnName = "id")
+   @JsonIgnoreProperties({"languages", "email", "avatar"})
    private Developer developer;
 
 

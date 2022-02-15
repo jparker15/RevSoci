@@ -27,9 +27,8 @@ public class Developer {
     private Integer cohort;
 //    private String[] languages;
 
-    @OneToMany
-    @JoinColumn(name = "developer_id",referencedColumnName = "id")
-    private List<Geekout> geekouts;
+//    @OneToMany(mappedBy = "developer", fetch = FetchType.LAZY)
+//    private List<Geekout> geekouts;
 
 
     @ManyToMany
@@ -42,15 +41,13 @@ public class Developer {
 
     @OneToOne
     private Avatar avatar;
+
     public Developer() {}
 
-    public Developer(String name, String email, Integer cohort, List<Geekout> geekouts, Set<Language> languages,Avatar avatar) {
+    public Developer(String name, String email, Integer cohort) {
         this.name = name;
         this.email = email;
         this.cohort = cohort;
-        this.geekouts = geekouts;
-        this.languages = languages;
-        this.avatar = avatar;
     }
 
     public Long getId() {
@@ -93,13 +90,13 @@ public class Developer {
         this.languages = languages;
     }
 
-    public List<Geekout> getGeekouts() {
-        return geekouts;
-    }
-
-    public void setGeekouts(List<Geekout> geekouts) {
-        this.geekouts = geekouts;
-    }
+//    public List<Geekout> getGeekouts() {
+//        return geekouts;
+//    }
+//
+//    public void setGeekouts(List<Geekout> geekouts) {
+//        this.geekouts = geekouts;
+//    }
 
     public Avatar getAvatar() {
         return avatar;
