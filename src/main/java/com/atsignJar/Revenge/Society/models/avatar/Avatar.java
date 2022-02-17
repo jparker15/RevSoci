@@ -16,6 +16,7 @@ public class Avatar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String tag;
     private String url;
 
     public Avatar (){
