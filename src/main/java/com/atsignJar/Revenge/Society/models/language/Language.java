@@ -2,6 +2,7 @@ package com.atsignJar.Revenge.Society.models.language;
 
 import com.atsignJar.Revenge.Society.models.developer.Developer;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -21,22 +22,23 @@ public class Language {
     private String tag;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "developer_language",
-            joinColumns = @JoinColumn(name = "language_id"),
-            inverseJoinColumns = @JoinColumn(name = "developer_id")
-    )
-    private Set<Developer> developers;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "developer_language",
+//            joinColumns = @JoinColumn(name = "language_id"),
+//            inverseJoinColumns = @JoinColumn(name = "developer_id")
+//    )
+//    @JsonIgnoreProperties("languages")
+//    private Set<Developer> developers;
 
     public Language (){
 
     }
 
-    public Language(String name, String tag, Set<Developer> developers) {
+    public Language(String name, String tag){
         this.name = name;
         this.tag = tag;
-        this.developers = developers;
+
     }
 
     public Long getId() {
