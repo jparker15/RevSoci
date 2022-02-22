@@ -1,11 +1,14 @@
 package com.atsignJar.Revenge.Society.models.geekout;
 
+import com.atsignJar.Revenge.Society.models.approve.Approve;
 import com.atsignJar.Revenge.Society.models.developer.Developer;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
@@ -27,6 +30,10 @@ public class Geekout {
 
     private String title;
     private String content;
+
+    @OneToMany(mappedBy = "geekout",fetch = FetchType.LAZY)
+    @JsonIncludeProperties("id")
+    private Set<Approve> approvals;
 
     public Geekout(){
 
